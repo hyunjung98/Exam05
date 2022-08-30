@@ -1,0 +1,65 @@
+{
+    "HeroAgent04": {
+        "checkpoints": [
+            {
+                "steps": 1499983,
+                "file_path": "results\\HeroAgent04\\HeroAgent04\\HeroAgent04-1499983.onnx",
+                "reward": null,
+                "creation_time": 1661843004.7720416,
+                "auxillary_file_paths": [
+                    "results\\HeroAgent04\\HeroAgent04\\HeroAgent04-1499983.pt"
+                ]
+            },
+            {
+                "steps": 1999963,
+                "file_path": "results\\HeroAgent04\\HeroAgent04\\HeroAgent04-1999963.onnx",
+                "reward": null,
+                "creation_time": 1661843692.396551,
+                "auxillary_file_paths": [
+                    "results\\HeroAgent04\\HeroAgent04\\HeroAgent04-1999963.pt"
+                ]
+            },
+            {
+                "steps": 2499999,
+                "file_path": "results\\HeroAgent04\\HeroAgent04\\HeroAgent04-2499999.onnx",
+                "reward": null,
+                "creation_time": 1661844442.6337888,
+                "auxillary_file_paths": [
+                    "results\\HeroAgent04\\HeroAgent04\\HeroAgent04-2499999.pt"
+                ]
+            },
+            {
+                "steps": 2999967,
+                "file_path": "results\\HeroAgent04\\HeroAgent04\\HeroAgent04-2999967.onnx",
+                "reward": 47.01000189781189,
+                "creation_time": 1661845327.5635912,
+                "auxillary_file_paths": [
+                    "results\\HeroAgent04\\HeroAgent04\\HeroAgent04-2999967.pt"
+                ]
+            },
+            {
+                "steps": 3000007,
+                "file_path": "results\\HeroAgent04\\HeroAgent04\\HeroAgent04-3000007.onnx",
+                "reward": 47.47000193595886,
+                "creation_time": 1661845327.6706908,
+                "auxillary_file_paths": [
+                    "results\\HeroAgent04\\HeroAgent04\\HeroAgent04-3000007.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 3000007,
+            "file_path": "results\\HeroAgent04\\HeroAgent04.onnx",
+            "reward": 47.47000193595886,
+            "creation_time": 1661845327.6706908,
+            "auxillary_file_paths": [
+                "results\\HeroAgent04\\HeroAgent04\\HeroAgent04-3000007.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
