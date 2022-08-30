@@ -11,7 +11,6 @@ public class Target : MonoBehaviour
     public UnityAction spawnComplete;
     private int spawnCount;
 
-
     public void Init()
     {
         spawnCount = 0;
@@ -31,40 +30,38 @@ public class Target : MonoBehaviour
 
     private IEnumerator CreateRoutine()
     {
-        while (true)
-        {
-            int randPointIndex = Random.Range(0, 4);
-
-            int randTargetIndex = Random.Range(0, 2);
-            var targetGo = Instantiate<GameObject>(this.arrTarget[randTargetIndex]);
-            targetGo.transform.SetParent(this.transform);
-
-            //var randPoint =  this.pointGo.transform.GetChild(randPointIndex).position;
-            var randPoint = this.pointGo[randPointIndex].transform.position;
-
-            targetGo.transform.position = randPoint;
-            yield return new WaitForSeconds(1f);
-            spawnCount++;
-            if (spawnCount >= 9)
-                break;
-        }
-        this.spawnComplete();
-
         //while (true)
         //{
         //    int randPointIndex = Random.Range(0, 4);
 
         //    int randTargetIndex = Random.Range(0, 2);
         //    var targetGo = Instantiate<GameObject>(this.arrTarget[randTargetIndex]);
-           
+        //    targetGo.transform.SetParent(this.transform);
 
         //    //var randPoint =  this.pointGo.transform.GetChild(randPointIndex).position;
         //    var randPoint = this.pointGo[randPointIndex].transform.position;
-        //    targetGo.transform.parent = this.transform;
+
         //    targetGo.transform.position = randPoint;
         //    yield return new WaitForSeconds(1f);
-
+        //    spawnCount++;
+        //    if (spawnCount >= 9)
+        //        break;
         //}
+        //this.spawnComplete();
+
+        while (true)
+        {
+            int randPointIndex = Random.Range(0, 4);
+
+            int randTargetIndex = Random.Range(0, 2);
+            var targetGo = Instantiate<GameObject>(this.arrTarget[randTargetIndex]);
+
+            //var randPoint =  this.pointGo.transform.GetChild(randPointIndex).position;
+            var randPoint = this.pointGo[randPointIndex].transform.position;
+            targetGo.transform.parent = this.transform;
+            targetGo.transform.position = randPoint;
+            yield return new WaitForSeconds(2f);
+        }
 
     }
 }

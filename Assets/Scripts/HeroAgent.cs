@@ -7,16 +7,26 @@ using Unity.MLAgents.Sensors;
 
 public class HeroAgent : Agent
 {
+    private Animator anim;
+
     public GameObject zombiePrefab;
     public GameObject citizenPrefab;
     public GameObject safetyZoneGo;
+    public GameObject groundGo;
     private Coroutine moveRoutine;
+
+    private Renderer groundRenderer;
+    public Material redMat;
+    public Material greenMat;
+    public Material groundMat;
 
     private bool isMove;
 
     private void Start()
     {
         isMove = false;
+        this.anim = this.GetComponentInChildren<Animator>();
+        this.groundRenderer = this.groundGo.GetComponent<Renderer>();
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -48,6 +58,15 @@ public class HeroAgent : Agent
         if (isShot == 1)
         {
             this.ShootGun();
+            if (this.GetCumulativeReward() <= this.GetCumulativeReward() + 0.9)
+            {
+                AddReward(-0.01f);
+            }
+            this.anim.SetInteger("State", 1);
+        }
+        else
+        {
+            this.anim.SetInteger("State", 0);
         }
     }
 
@@ -81,25 +100,32 @@ public class HeroAgent : Agent
     {
         RaycastHit hit;
         var ray = new Ray(transform.position + new Vector3(0, 4, 0), transform.forward);
-        Debug.DrawRay(ray.origin, ray.direction * 7f, Color.red, 1f);
+        Debug.DrawRay(ray.origin, ray.direction * 5f, Color.red, 1f);
 
-        Physics.Raycast(transform.position + new Vector3(0, 4, 0), transform.forward, out hit, 7f);
+        Physics.Raycast(transform.position + new Vector3(0, 4, 0), transform.forward, out hit, 5f);
+
+        if (hit.collider == null && this.GetCumulativeReward() <= this.GetCumulativeReward() + 0.9f)
+        {
+            AddReward(-0.01f);
+        }
 
         if (hit.collider != null
             && (hit.collider.CompareTag("zombie") || hit.collider.CompareTag("citizen")))
         {
             Destroy(hit.collider.gameObject);
-            AddReward(0.001f);
 
             if (hit.collider.CompareTag("zombie"))
             {
                 Destroy(hit.collider.gameObject);
+                StartCoroutine(this.ChangeGroundColor(this.greenMat));
                 AddReward(1f);
             }
 
             if (hit.collider.transform.CompareTag("citizen"))
             {
                 Destroy(hit.collider.gameObject);
+                StartCoroutine(this.ChangeGroundColor(this.redMat));
+                AddReward(0.5f);
                 EndEpisode();
             }
         }
@@ -131,9 +157,15 @@ public class HeroAgent : Agent
 
         this.transform.localPosition = dir;
 
-        //yield return new WaitForSeconds(0.5f);
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
+        //yield return null;
         moveRoutine = null;
         isMove = false;
+    }
+    private IEnumerator ChangeGroundColor(Material mat)
+    {
+        this.groundRenderer.material = mat;
+        yield return new WaitForSeconds(0.3f);
+        this.groundRenderer.GetComponent<Renderer>().material = this.groundMat;
     }
 }

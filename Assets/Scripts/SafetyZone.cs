@@ -5,14 +5,24 @@ using UnityEngine.Events;
 
 public class SafetyZone : MonoBehaviour
 {
-    public UnityAction onCollide;
+    public UnityAction onZombieCollide;
+    public UnityAction onCitizenCollide;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("zombie") || other.CompareTag("citizen"))
         {
             Destroy(other.gameObject);
-            this.onCollide();
+
+            if (other.CompareTag("zombie"))
+            {
+                this.onZombieCollide();
+            }
+
+            if (other.CompareTag("citizen"))
+            {
+                this.onCitizenCollide();
+            }
         }
     }
 }
